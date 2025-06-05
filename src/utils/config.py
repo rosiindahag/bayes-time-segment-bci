@@ -1,7 +1,7 @@
 import os
 
 # DATASET 1: BCI COMPETITION IV 2008 DATASET 2A
-DATASET1_PATH=r'data\\bciiv2a_dataset\\'
+DATASET1_PATH= os.path.join("data", "bciiv2a_dataset") #r'data\\bciiv2a_dataset\\'
 DATASET1_SUBJECT = [f for f in os.listdir(DATASET1_PATH) if os.path.isfile(os.path.join(DATASET1_PATH, f))]
 DATASET1_EOG = ['EOG-left', 'EOG-central', 'EOG-right']
 DATASET1_CHANNEL_MAPPING = {
@@ -27,7 +27,7 @@ DATASET1_EVENT_DICT = {
     '783': 11,   # unknown
 }
 DATASET1_USED = [i for i in range(1,9*2,2)]
-DATASET1_PATH_LABEL = r'data\\bciiv2a_dataset\\true_label\\'
+DATASET1_PATH_LABEL = os.path.join(DATASET1_PATH, "true_label") #r'data\\bciiv2a_dataset\\true_label\\'
 DATASET1_NAME = os.path.basename(os.path.dirname(DATASET1_PATH))[5:7]
 DATASET1_SELECTED_CH = ['Fz', 'FC3', 'FC1', 'FCz', 'FC4', 'C5', 'F8', 'C3', 'C1', 'Cz', 'C2', 'C4', 'C6', 'CP3', 'CP1', 'CPz', 'CP2', 'CP4', 'P1', 'Pz', 'P2', 'POz']
 
