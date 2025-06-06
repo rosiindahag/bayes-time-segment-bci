@@ -93,7 +93,7 @@ def load_raw_file(file_path, file_name, channel_mapping, std, selected_channels,
     return raw, events, event_id
 
 def get_test_label(folder_path, subject, num_epochs, *labels):
-    mat=sio.loadmat(f'{folder_path}/{subject}.mat')
+    mat=sio.loadmat(os.path.join(folder_path,rf"{subject}.mat"))
     y_label = mat['classlabel'].reshape(num_epochs)
     y_labels={i:label for i,label in enumerate(y_label) if label==labels[0] or label==labels[1] or label==labels[2] or label==labels[3]}
     return y_labels
