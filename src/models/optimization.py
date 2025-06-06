@@ -39,7 +39,7 @@ def optimize_model(X_segmented, y):
         cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
         return cross_val_score(pipeline, X_segmented, y, cv=cv, scoring='accuracy').mean()
 
-    study = optuna.create_study(direction='maximize')
+    study = optuna.create_study(direction='maximize', sampler=optuna.samplers.GPSampler())
     study.optimize(optuna_objective, n_trials=30, show_progress_bar=True)
     return study.best_params, study.best_value
 
