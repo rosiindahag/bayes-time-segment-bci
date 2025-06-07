@@ -14,7 +14,7 @@ import numpy as np
 # Define the search space
 search_space = [
     Real(0.0, 3.96, name='t_start'),  # 4.0 - 0.04
-    Real(1.0, 4.0, name='t_end')
+    Real(0.04, 4.0, name='t_end')
 ]
 
 best_score = -np.inf
@@ -39,7 +39,7 @@ def optimize_model(X_segmented, y):
         cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
         return cross_val_score(pipeline, X_segmented, y, cv=cv, scoring='accuracy').mean()
 
-    study = optuna.create_study(direction='maximize', sampler=optuna.samplers.GPSampler())
+    study = optuna.create_study(direction='maximize')
     study.optimize(optuna_objective, n_trials=30, show_progress_bar=True)
     return study.best_params, study.best_value
 
