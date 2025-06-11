@@ -32,5 +32,5 @@ def evaluate_model(model, X_test, y_test, best_params, sfreq, subject, folder_pa
 
     os.makedirs(folder_path, exist_ok=True)
     plt.savefig(os.path.join(folder_path, "confusion_matrix.png"))
-    plt.show()
+    # plt.show()
     return kappa
