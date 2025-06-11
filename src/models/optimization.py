@@ -17,8 +17,7 @@ search_space = [
     Real(0.04, 4.0, name='t_end')
 ]
 
-best_score = -np.inf
-best_params = {}
+
 
 def crop_eeg(X, t_start, t_end, sfreq):
     start_idx = int(t_start * sfreq)
@@ -40,12 +39,12 @@ def optimize_model(X_segmented, y):
         return cross_val_score(pipeline, X_segmented, y, cv=cv, scoring='accuracy').mean()
 
     study = optuna.create_study(direction='maximize')
-    study.optimize(optuna_objective, n_trials=30, show_progress_bar=True)
+    study.optimize(optuna_objective, n_trials=20, show_progress_bar=True)
     return study.best_params, study.best_value
 
 def run_bayesian_optimization(X_train, y_train, sfreq, acq_func, max_iterations=50):
-    global best_score, best_params
-
+    best_score = -np.inf
+    best_params = {}
     @use_named_args(search_space)
     def objective(**params):
         t_start = round(params['t_start'], 3)
@@ -61,7 +60,7 @@ def run_bayesian_optimization(X_train, y_train, sfreq, acq_func, max_iterations=
         except Exception:
             return 1.0
 
-        global best_score, best_params
+        nonlocal best_score, best_params
         if acc > best_score:
             best_score = acc
             best_params = {
