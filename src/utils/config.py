@@ -2,7 +2,17 @@ import os
 
 # DATASET 1: BCI COMPETITION IV 2008 DATASET 2A
 DATASET1_PATH= os.path.join("data", "bciiv2a_dataset") #r'data\\bciiv2a_dataset\\'
-DATASET1_SUBJECT = [f for f in os.listdir(DATASET1_PATH) if os.path.isfile(os.path.join(DATASET1_PATH, f))]
+
+def load_dataset_info(dataset_path=DATASET1_PATH):
+    try:
+        DATASET1_SUBJECT = [f for f in os.listdir(dataset_path) if os.path.isfile(os.path.join(dataset_path, f))]
+        print("Dataset loaded successfully!")
+    except FileNotFoundError:
+        print(f"Dataset path {DATASET1_PATH} not found!")
+        DATASET1_SUBJECT = []
+    
+    return DATASET1_SUBJECT
+
 DATASET1_EOG = ['EOG-left', 'EOG-central', 'EOG-right']
 DATASET1_CHANNEL_MAPPING = {
                             'EEG-Fz': 'Fz', 'EEG-0': 'FC3', 'EEG-1': 'FC1', 'EEG-2': 'FCz', 'EEG-3': 'FC4', 
