@@ -1,0 +1,11 @@
+{
+    "t_start": 0.678,
+    "t_end": 2.233,
+    "n_components": 8,
+    "C": 0.9955177842054854,
+    "kernel": "linear",
+    "accuracy": 0.760193587416818,
+    "gamma": "scale",
+    "acq_func": "EI",
+    "kappa": 0.5046296296296297
+}
