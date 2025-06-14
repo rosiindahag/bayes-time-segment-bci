@@ -69,7 +69,7 @@ def run_bayesian_optimization(X_train, y_train, sfreq, acq_func, max_iterations=
                 'n_components': hyperparams['n_components'],
                 'C': hyperparams['C'],
                 'kernel': hyperparams['kernel'],
-                'accuracy': acc,
+                'accuracy': best_score,
                 'gamma': hyperparams.get('gamma', 'scale'),
                 'acq_func':acq_func
             }
