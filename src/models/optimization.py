@@ -17,8 +17,6 @@ search_space = [
     Real(0.04, 4.0, name='t_end')
 ]
 
-
-
 def crop_eeg(X, t_start, t_end, sfreq):
     start_idx = int(t_start * sfreq)
     end_idx = int(t_end * sfreq)
@@ -86,38 +84,3 @@ def run_bayesian_optimization(X_train, y_train, sfreq, acq_func, max_iterations=
     )
 
     return best_params
-
-# def run_bayesian_optimization(X_train, y_train, sfreq, max_iterations=50):
-#     def objective(t_start, t_end):
-#         global best_score, best_params
-#         if t_end <= t_start:
-#             return -1.0
-#         if (t_end - t_start) <= 0.04:
-#             return -1.0
-#         X_segmented = crop_eeg(X_train, t_start, t_end, sfreq)
-#         try:
-#             hyperparams, acc = optimize_model(X_segmented, y_train)
-#         except Exception:
-#             return -1.0
-
-#         if acc > best_score:
-#             best_score = acc
-#             best_params = {
-#                 't_start': t_start,
-#                 't_end': t_end,
-#                 'n_components': hyperparams['n_components'],
-#                 'C': hyperparams['C'],
-#                 'kernel': hyperparams['kernel'],
-#                 'accuracy': acc
-#             }
-#             best_params['gamma'] = hyperparams.get('gamma', 'scale')
-#         return acc
-
-#     optimizer = BayesianOptimization(
-#         f=objective,
-#         pbounds={'t_start': (0.0, 4.0 - 0.04), 't_end': (1.0, 4.0)},
-#         verbose=2,
-#         random_state=42
-#     )
-#     optimizer.maximize(init_points=5, n_iter=max_iterations)
-#     return best_params
