@@ -15,26 +15,20 @@ import json
 import numpy as np
 
 import os
-import tensorflow as tf
 
 def main():
     setup_logging()
     dataset_subject=load_dataset_info()
     
     # Subject setup
-    subject_id = 17 # odd number until 17 (17 for subject 9)
+    subject_id = 1 # odd number [1,3,5...,17] until 17 (17 for subject 9)
     file_name_train = dataset_subject[subject_id]
     file_name_test = dataset_subject[subject_id - 1]
     subject = file_name_train.split(".")[0][:3]
 
     for acq_func in ACQ_FUNC_LIST:
-        # if acq_func=="EI":
-        #     continue
         for freq_id in  range(2):
-            # best_params = {}
-            # best_score = -np.inf
             min_freq, max_freq = FREQ_BANDS_LIST[freq_id]
-            # print('best_params so far:', best_params)
             print(f"SUBJECT: {subject}")
 
             print(f"Processing frequency band {min_freq}-{max_freq} Hz")
@@ -78,7 +72,6 @@ def main():
             X_test = [temp_X_test[i] for i in y_test_idx]
             X_test = np.array(X_test)
 
-            # don't forget to change bayescspsvm to bayescsplda
             folder_path = os.path.join("results","bayescspsvmfixed",subject,"TPE", rf"{acq_func}_{str(min_freq)}_{str(max_freq)}")
 
             # Optimize and train
